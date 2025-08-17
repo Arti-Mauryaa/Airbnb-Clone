@@ -14,7 +14,6 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-const PORT = process.env.PORT || 8080
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
@@ -102,6 +101,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error.ejs", { err });
 });
 
+const PORT = process.env.PORT || 8080; // fallback for local
 app.listen(PORT, () => {
-  console.log(`listening at ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
+
