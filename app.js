@@ -19,15 +19,6 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-// Force HTTPS in production
-if (process.env.NODE_ENV === "production") {
-  app.use((req, res, next) => {
-    if (req.header("x-forwarded-proto") !== "https") {
-      return res.redirect(`https://${req.header("host")}${req.url}`);
-    }
-    next();
-  });
-}
 
 //connection setup=====
 const dbUrl = process.env.ATLASDB_URL;
@@ -90,6 +81,22 @@ app.use((req,res,next) => {
   res.locals.currUser = req.user;
   next();
 });
+
+// ===== Force HTTPS in production =====
+if (process.env.NODE_ENV === "production") {
+  app.use((req, res, next) => {
+    if (req.header("x-forwarded-proto") !== "https") {
+      return res.redirect(`https://${req.header("host")}${req.url}`);
+    }
+    next();
+  });
+}
+
+// ===== Root redirect to /listings =====
+app.get('/', (req, res) => {
+  res.redirect('/listings');
+});
+
 
 //Router===
 app.use("/listings", listingRouter);
