@@ -23,15 +23,16 @@ const userRouter = require("./routes/user.js");
 //connection setup=====
 const dbUrl = process.env.ATLASDB_URL;
 
-main()
-  .then((res) => {
-    console.log("connection successful");
-  })
-  .catch((err) => console.log("Mongodb connection error ",err));
-
-async function main() {
-  await mongoose.connect(dbUrl);
+async function main(){
+    try {
+        await mongoose.connect(dbUrl);
+        console.log("connection successful");
+    } catch (err) {
+        console.log(err);
+    }
 }
+main();
+
 
 
 app.set("views", path.join(__dirname, "/views"));
@@ -49,7 +50,7 @@ const store = MongoStore.create({
   touchAfter : 24 * 3600, //for lazy update ---second
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
   console.log("ERROR in MONGO SESSION STORE", err);
 });
 

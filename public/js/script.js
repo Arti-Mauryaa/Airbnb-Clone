@@ -17,3 +17,22 @@
     }, false)
   })
 })();
+
+
+// public/js/script.js
+
+// const fetchListings = async () => {
+//     try {
+//         // Agar aap server aur frontend same domain par hain
+//         const res = await fetch("/listings"); 
+//         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+//         const data = await res.json();
+//         console.log("Listings:", data);
+//         // Optional: DOM me render karne ke liye function call
+//         // renderListings(data);
+//     } catch (err) {
+//         console.error("Error fetching listings:", err);
+//     }
+// };
+
+// fetchListings();
