@@ -35,27 +35,8 @@ module.exports.showListing = async (req, res) => {
   });
 };
 
-// SHOW LISTING
-module.exports.showListing = async (req, res) => {
-  const { id } = req.params;
-  const listing = await Listing.findById(id)
-    .populate({ path: "reviews", populate: { path: "author" } })
-    .populate("owner");
-
-  if (!listing) {
-    req.flash("error", "Listing not found!");
-    return res.redirect("/listings");
-  }
-
-  res.render("listings/show.ejs", {
-    listing,
-    currUser: req.user,
-    mapToken: process.env.MAP_TOKEN,
-  });
-};
-
 // CREATE LISTING
-module.exports.createListing = async (req, res) => {
+module.exports.createListing = async (req, res, next) => {
   try{
   const locationQuery = req.body.listing.location;
 
