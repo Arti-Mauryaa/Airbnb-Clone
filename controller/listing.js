@@ -2,8 +2,8 @@ const Listing = require("../models/listing");
 
 //index Router
 module.exports.index = async (req, res) => {
-  const allListing = await Listing.find({});
-  res.render("./listings/index.ejs", { allListing });
+  const listings = await Listing.find({});
+  res.render("./listings/index.ejs", { allListing : listings });
 };
 
 // new Route
